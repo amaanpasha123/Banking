@@ -1,11 +1,33 @@
+import Sidebar from "@/components/Sidebar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+ // Expand this object with mock data to satisfy the strict 'User' type requirements
+  const loggedIn: User = {
+    $id: 'mock-id-123',
+    userId: 'mock-user-123',
+    email: 'amaan@example.com',
+    firstName: 'Amaan',
+    lastName: 'Pasha',
+    dwollaCustomerUrl: 'https://mock.dwolla.com/customers/123',
+    // 💡 If TypeScript complains about more missing properties, 
+    // add them right here as empty strings or mock values:
+    dwollaCustomerId: 'mock-dwolla-id',
+    address1: '123 Mock St',
+    city: 'Mock City',
+    state: 'NY',
+    postalCode: '10001',
+    dateOfBirth: '2000-01-01',
+    ssn: '1234',
+  };
+
   return (
-     <main>
-        Side Bar is good
+     <main className="flex h-screen w-full font-inter">
+        <Sidebar user={loggedIn}/>
         {children}
      </main>
   );
