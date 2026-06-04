@@ -1,4 +1,5 @@
  import HeaderBox from '@/components/HeaderBox'
+import TotalBalance from '@/components/TotalBalance'
 import React from 'react'
  
  const Home = () => {
@@ -14,6 +15,11 @@ import React from 'react'
             subtext="Access and managed your account and transaction efficiently"
             />
           </header>
+          <TotalBalance
+          accounts={[]}
+          totalBanks = {1}
+          totalCurrentBalance = {1256}
+           />
       </div>
      </section>
    )

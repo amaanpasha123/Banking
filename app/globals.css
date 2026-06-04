@@ -42,11 +42,17 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #7878a3;
 }
+.gradient-text {
+  background: linear-gradient(90deg, #0179FE 0%, #4893FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent !important;  /* add !important */
+  background-clip: text;
+  color: transparent !important;  /* add !important */
+}
 
 @layer utilities {
-  .text-bankGradient {
-  @apply bg-gradient-to-r from-[#0179FE] to-[#4893FF] bg-clip-text text-transparent;
-}
+  /* Change from .text-bankGradient to this: */
+
   .input-class {
     @apply text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
   }
