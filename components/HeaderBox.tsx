@@ -4,7 +4,9 @@ const HeaderBox = ({type="title", title, user, subtext}
     :
     HeaderBoxProps) => {
   return (
-    <div>HeaderBox</div>
+    <div>
+        <h1 className='header-box-title'>{title}</h1>
+    </div>
   )
 }
 
