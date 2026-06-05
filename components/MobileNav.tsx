@@ -11,6 +11,7 @@ import {
   SheetClose,
   SheetContent,
   SheetTrigger,
+  SheetTitle, // 1. Make sure SheetTitle is imported
 } from "@/components/ui/sheet";
 
 const MobileNav = ({ user }: MobileNavProps) => {
@@ -29,6 +30,10 @@ const MobileNav = ({ user }: MobileNavProps) => {
           />
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-white">
+          
+          {/* 2. ✅ ADD THIS LINE: It keeps screen readers happy but stays invisible */}
+          <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+
           <nav className="flex flex-col gap-4">
             <Link
               href="/"
@@ -81,7 +86,6 @@ const MobileNav = ({ user }: MobileNavProps) => {
                   );
                 })}
 
-                {/* ✅ USER TEXT ADDED HERE */}
                 <div className="text-black-1">
                   USER
                 </div>
@@ -89,7 +93,6 @@ const MobileNav = ({ user }: MobileNavProps) => {
               </nav>
             </div>
 
-            {/* ✅ FOOTER TEXT ADDED HERE */}
             <div className="text-black-2 mt-auto">
               FOOTER
             </div>
