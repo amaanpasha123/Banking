@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { formatAmount } from '@/lib/utils';
+import Image from 'next/image';
 
 const BankCard = ({ account, userName, showBalance = true }: CreditCardProps) => {
   return (
@@ -37,7 +38,31 @@ const BankCard = ({ account, userName, showBalance = true }: CreditCardProps) =>
           </article>
         </div>
 
+        <div className='bank-card_icon'>
+            <Image 
+                src='/icons/Paypass.svg'
+                width={20}
+                height={20}
+                alt='pay'
+            />
+            <Image 
+             src='/icons/mastercard.svg'
+             width={45}
+             height={32}
+             alt='mastercard'
+            />
+            <Image 
+            src='/icons/lines.svg'
+            width={316}
+            height={190}
+            alt='lines'
+            className='absolute top-0 left-0'
+            />
+
+        </div>
+
       </Link> {/* Close the Link tag here */}
+      {/* Will Add facility to copy the Account Numbers */}
     </div>
   )
 }
