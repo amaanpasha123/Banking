@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import BankCard from "./BankCard";
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   return (
@@ -9,32 +10,53 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         <div className="profile-banner" />
         <div className="profile">
           <div className="profile-img">
+            {/* JavaScript is case-sensitive: matching the casing of your object props */}
             <span className="text-5xl font-bold text-blue-500">
-              {user.firstName[0]}
+              {user?.firstName ? user.firstName[0] : "U"}
             </span>
           </div>
           <div className="profile-details">
             <h1 className="profile-name">
-              {user.firstName} {user.lastName}
+              {user?.firstName} {user?.lastName}
             </h1>
-            <p className="profile-email">{user.email}</p>
+            <p className="profile-email">{user?.email}</p>
           </div>
         </div>
       </section>
+
       <section className="banks">
-        <div className="flex w-full justify-between">
+        {/* FIXED: This container now ONLY controls the header row layout */}
+        <div className="flex w-full justify-between items-center mb-5">
           <h2 className="header-2">My Banks</h2>
           <Link href="/" className="flex gap-2">
-            <Image src="/icons/plus.svg" 
-            width={20} 
-            height={20} 
-            alt="plus" />
-            <h2 className="text-14 font-semibold text-gray-600">
-                Add Bank
-            </h2>
+            <Image src="/icons/plus.svg" width={20} height={20} alt="plus" />
+            <h2 className="text-14 font-semibold text-gray-600">Add Bank</h2>
           </Link>
-
-        </div>
+        </div>{" "}
+        {/* <--- CLOSED HERE NOW */}
+        {/* The card layout now sits beautifully underneath the header row */}
+        {banks?.length > 0 && (
+          <div className="relative flex flex-1 flex-col items-center justify-center gap-5">
+            <div className="relative z-10 w-full">
+              <BankCard
+                key={banks[0].$id}
+                account={banks[0]}
+                userName={`${user.firstName} ${user.lastName}`}
+                showBalance={false}
+              />
+            </div>
+            {banks[1] && (
+              <div className="absolute right-0 top-8 z-0 w-[90%]">
+                <BankCard
+                  key={banks[0].$id}
+                  account={banks[0]}
+                  userName={`${user.firstName} ${user.lastName}`}
+                  showBalance={false}
+                />
+              </div>
+            )}
+          </div>
+        )}
       </section>
     </aside>
   );

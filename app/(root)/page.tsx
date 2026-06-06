@@ -5,11 +5,11 @@ import React from "react";
 
 const Home = () => {
   // Mocking the full User object to satisfy TypeScript
-  const loggedIn = { 
+  const loggedIn = {
     $id: "user_01",
-    userId: "user_01",
+    userId: "Aser_01",
     email: "amaanpasha@example.com",
-    firstName: "Amaan", 
+    firstName: "Amaan",
     lastName: "Dev",
     dwollaCustomerUrl: "https://dwolla.com/sandbox/customer/123",
     dwollaCustomerId: "123",
@@ -18,7 +18,7 @@ const Home = () => {
     state: "NY",
     postalCode: "10001",
     dateOfBirth: "2000-01-01",
-    ssn: "1234"
+    ssn: "1234",
   };
 
   return (
@@ -29,21 +29,23 @@ const Home = () => {
             type="greeting"
             title="Welcome"
             // HeaderBox usually just expects a string for the name
-            user={loggedIn?.firstName || "Guest"} 
+            user={loggedIn?.firstName || "Guest"}
             subtext="Access and manage your account and transactions efficiently"
           />
         </header>
-        
-        <TotalBalance 
-          accounts={[]} 
-          totalBanks={1} 
-          totalCurrentBalance={1250.35} 
+
+        <TotalBalance
+          accounts={[]}
+          totalBanks={1}
+          totalCurrentBalance={1250.35}
         />
       </div>
 
       {/* Passing some mock banks data so the sidebar doesn't look completely empty */}
-      <RightSidebar 
-        user={loggedIn} 
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[{ currentBalance: 123.5 }, {currentBalance : 500.00}] as unknown as (Bank & Account)[]}
       />
     </section>
   );

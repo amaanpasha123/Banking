@@ -294,9 +294,11 @@
   }
 
   /* Bank Card */
-  .bank-card {
-    @apply relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-white bg-bank-gradient shadow-creditCard backdrop-blur-[6px];
-  }
+ /* Bank Card */
+.bank-card {
+  /* Reduced height from 190px to 170px, and max-width to 290px to make it sleeker */
+  @apply relative flex h-[170px] w-full max-w-[290px] justify-between rounded-[20px] border border-white/20 bg-bank-gradient shadow-creditCard backdrop-blur-[6px] transition-all duration-300;
+}
 
   .bank-card_content {
     @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-700 bg-bank-gradient px-5 pb-4 pt-5;
