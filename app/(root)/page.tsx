@@ -1,4 +1,5 @@
 import HeaderBox from "@/components/HeaderBox";
+import RightSidebar from "@/components/RightSidebar";
 import TotalBalance from "@/components/TotalBalance";
 import React from "react";
 
@@ -7,9 +8,9 @@ const Home = () => {
   const loggedIn = { 
     $id: "user_01",
     userId: "user_01",
-    email: "amaan@example.com",
-    firstname: "Amaan", 
-    lastname: "Dev",
+    email: "amaanpasha@example.com",
+    firstName: "Amaan", 
+    lastName: "Dev",
     dwollaCustomerUrl: "https://dwolla.com/sandbox/customer/123",
     dwollaCustomerId: "123",
     address1: "123 Main St",
@@ -20,7 +21,6 @@ const Home = () => {
     ssn: "1234"
   };
 
-  
   return (
     <section className="home">
       <div className="home-content">
@@ -29,7 +29,7 @@ const Home = () => {
             type="greeting"
             title="Welcome"
             // HeaderBox usually just expects a string for the name
-            user={loggedIn?.firstname || "Guest"} 
+            user={loggedIn?.firstName || "Guest"} 
             subtext="Access and manage your account and transactions efficiently"
           />
         </header>
@@ -40,6 +40,11 @@ const Home = () => {
           totalCurrentBalance={1250.35} 
         />
       </div>
+
+      {/* Passing some mock banks data so the sidebar doesn't look completely empty */}
+      <RightSidebar 
+        user={loggedIn} 
+      />
     </section>
   );
 };
