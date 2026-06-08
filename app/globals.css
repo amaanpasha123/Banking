@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   margin: 0;
   padding: 0;
@@ -16,9 +15,10 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
+
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(4px);
@@ -43,17 +43,16 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #7878a3;
 }
+
 .gradient-text {
   background: linear-gradient(90deg, #0179FE 0%, #4893FF 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent !important;  /* add !important */
+  -webkit-text-fill-color: transparent !important;
   background-clip: text;
-  color: transparent !important;  /* add !important */
+  color: transparent !important;
 }
 
 @layer utilities {
-  /* Change from .text-bankGradient to this: */
-
   .input-class {
     @apply text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
   }
@@ -63,7 +62,7 @@
   }
 
   .text14_padding10 {
-    @apply text-14 px-4 py-2.5 font-semibold;
+    @apply text-[14px] leading-[20px] px-4 py-2.5 font-semibold;
   }
 
   .flex-center {
@@ -71,10 +70,10 @@
   }
 
   .header-2 {
-    @apply text-18 font-semibold text-gray-900;
+    @apply text-[18px] leading-[22px] font-semibold text-gray-900;
   }
 
-   .text-10 {
+  .text-10 {
     @apply text-[10px] leading-[14px];
   }
 
@@ -112,71 +111,63 @@
 
   .text-36 {
     @apply text-[36px] leading-[44px];
-  } 
+  }
 
-  .text14_padding10 {
-  @apply text-[14px] leading-[20px] px-4 py-2.5 font-semibold;
-}
+  .total-balance-label {
+    @apply text-[14px] leading-[20px] font-medium text-gray-600;
+  }
 
-.header-2 {
-  @apply text-[18px] leading-[22px] font-semibold text-gray-900;
-}
+  .view-all-btn {
+    @apply rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700 text-[14px] leading-[20px];
+  }
 
-.total-balance-label {
-  @apply text-[14px] leading-[20px] font-medium text-gray-600;
-}
+  .profile-name {
+    @apply text-[24px] leading-[30px] font-semibold text-gray-900;
+  }
 
-.view-all-btn {
-  @apply rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700 text-[14px] leading-[20px];
-}
+  .profile-email {
+    @apply text-[16px] leading-[24px] font-normal text-gray-600;
+  }
 
-.profile-name {
-  @apply text-[24px] leading-[30px] font-semibold text-gray-900;
-}
+  .recent-transactions-label {
+    @apply font-semibold text-gray-900 text-[20px] leading-[24px] md:text-[24px];
+  }
 
-.profile-email {
-  @apply text-[16px] leading-[24px] font-normal text-gray-600;
-}
+  .header-box-title {
+    @apply font-semibold text-gray-900 text-[24px] leading-[30px] lg:text-[30px];
+  }
 
-.recent-transactions-label {
-  @apply font-semibold text-gray-900 text-[20px] leading-[24px] md:text-[24px];
-}
+  .header-box-subtext {
+    @apply font-normal text-gray-600 text-[14px] leading-[20px] lg:text-[16px];
+  }
 
-.header-box-title {
-  @apply font-semibold text-gray-900 text-[24px] leading-[30px] lg:text-[30px];
-}
+  .plaidlink-primary {
+    @apply rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form text-[16px] leading-[24px];
+  }
 
-.header-box-subtext {
-  @apply font-normal text-gray-600 text-[14px] leading-[20px] lg:text-[16px];
-}
+  .form-label {
+    @apply text-[14px] leading-[20px] w-full max-w-[280px] font-medium text-gray-700;
+  }
 
-.plaidlink-primary {
-  @apply rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form text-[16px] leading-[24px];
-}
+  .form-message {
+    @apply text-red-500 text-[12px] leading-[16px];
+  }
 
-.form-label {
-  @apply w-full max-w-[280px] font-medium text-gray-700 text-[14px] leading-[20px];
-}
+  .form-btn {
+    @apply rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form text-[16px] leading-[24px];
+  }
 
-.form-message {
-  @apply text-red-500 text-[12px] leading-[16px];
-}
+  .form-link {
+    @apply cursor-pointer font-medium text-bankGradient text-[14px] leading-[20px];
+  }
 
-.form-btn {
-  @apply rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form text-[16px] leading-[24px];
-}
+  .payment-transfer_btn {
+    @apply w-full bg-bank-gradient font-semibold text-white shadow-form text-[14px] leading-[20px] !important;
+  }
 
-.form-link {
-  @apply cursor-pointer font-medium text-bankGradient text-[14px] leading-[20px];
-}
-
-.payment-transfer_btn {
-  @apply w-full bg-bank-gradient font-semibold text-white shadow-form text-[14px] leading-[20px] !important;
-}
-
-.sidebar-label {
-  @apply font-semibold text-black-2 max-xl:hidden text-[16px] leading-[24px];
-}
+  .sidebar-label {
+    @apply font-semibold text-black-2 max-xl:hidden text-[16px] leading-[24px];
+  }
 
   /* Home */
   .home {
@@ -199,28 +190,12 @@
     @apply flex size-full max-w-[100px] items-center sm:max-w-[120px];
   }
 
-  .total-balance-label {
-    @apply text-14 font-medium text-gray-600;
-  }
-
   .total-balance-amount {
-    @apply text-24 lg:text-30 flex-1 font-semibold text-gray-900;
+    @apply text-[24px] leading-[30px] lg:text-[30px] leading-[38px] flex-1 font-semibold text-gray-900;
   }
 
   .recent-transactions {
     @apply flex w-full flex-col gap-6;
-  }
-
-  .view-all-btn {
-    @apply text-14 rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700;
-  }
-
-  .recent-transactions {
-    @apply flex w-full flex-col gap-6;
-  }
-
-  .recent-transactions-label {
-    @apply text-20 md:text-24 font-semibold text-gray-900;
   }
 
   .recent-transactions-tablist {
@@ -248,14 +223,6 @@
     @apply flex flex-col pt-24;
   }
 
-  .profile-name {
-    @apply text-24 font-semibold text-gray-900;
-  }
-
-  .profile-email {
-    @apply text-16 font-normal text-gray-600;
-  }
-
   .banks {
     @apply flex flex-col justify-between gap-8 px-6 py-8;
   }
@@ -265,7 +232,7 @@
     @apply flex h-screen max-h-screen w-full flex-col gap-8 bg-gray-25 p-8 xl:py-12;
   }
 
-  /* My Banks */
+  /* Transactions */
   .transactions {
     @apply flex max-h-screen w-full flex-col gap-8 overflow-y-scroll bg-gray-25 p-8 xl:py-12;
   }
@@ -279,27 +246,17 @@
   }
 
   .transactions-account-balance {
-    @apply flex-center flex-col  gap-2 rounded-md bg-blue-25/20 px-4 py-2 text-white;
+    @apply flex-center flex-col gap-2 rounded-md bg-blue-25/20 px-4 py-2 text-white;
   }
 
   .header-box {
     @apply flex flex-col gap-1;
   }
 
-  .header-box-title {
-    @apply text-24 lg:text-30 font-semibold text-gray-900;
-  }
-
-  .header-box-subtext {
-    @apply text-14 lg:text-16 font-normal text-gray-600;
-  }
-
   /* Bank Card */
- /* Bank Card */
-.bank-card {
-  /* Reduced height from 190px to 170px, and max-width to 290px to make it sleeker */
-  @apply relative flex h-[170px] w-full max-w-[290px] justify-between rounded-[20px] border border-white/20 bg-bank-gradient shadow-creditCard backdrop-blur-[6px] transition-all duration-300;
-}
+  .bank-card {
+    @apply relative flex h-[170px] w-full max-w-[290px] justify-between rounded-[20px] border border-white/20 bg-bank-gradient shadow-creditCard backdrop-blur-[6px] transition-all duration-300;
+  }
 
   .bank-card_content {
     @apply relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-700 bg-bank-gradient px-5 pb-4 pt-5;
@@ -333,10 +290,6 @@
   }
 
   /* PlaidLink */
-  .plaidlink-primary {
-    @apply text-16 rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form;
-  }
-
   .plaidlink-ghost {
     @apply flex cursor-pointer items-center justify-center gap-3 rounded-lg px-3 py-7 hover:bg-white lg:justify-start;
   }
@@ -359,22 +312,6 @@
     @apply flex flex-col gap-1.5;
   }
 
-  .form-label {
-    @apply text-14 w-full max-w-[280px] font-medium text-gray-700;
-  }
-
-  .form-message {
-    @apply text-12 text-red-500;
-  }
-
-  .form-btn {
-    @apply text-16 rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-white shadow-form;
-  }
-
-  .form-link {
-    @apply text-14 cursor-pointer font-medium text-bankGradient;
-  }
-
   /* Payment Transfer */
   .payment-transfer {
     @apply no-scrollbar flex flex-col overflow-y-scroll bg-gray-25 p-8 md:max-h-screen xl:py-12;
@@ -394,10 +331,6 @@
 
   .payment-transfer_btn-box {
     @apply mt-5 flex w-full max-w-[850px] gap-3 border-gray-200 py-5;
-  }
-
-  .payment-transfer_btn {
-    @apply text-14 w-full bg-bank-gradient font-semibold text-white shadow-form !important;
   }
 
   /* Root Layout */
@@ -441,18 +374,23 @@
 
   /* Sidebar */
   .sidebar {
-    @apply sticky left-0 top-0 flex h-screen w-fit flex-col  justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px];
+    @apply sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px];
   }
 
   .sidebar-logo {
-    @apply 2xl:text-26 font-ibm-plex-serif text-[26px] font-bold text-black-1 max-xl:hidden;
+    @apply 2xl:text-[26px] font-ibm-plex-serif text-[26px] font-bold text-black-1 max-xl:hidden;
   }
 
   .sidebar-link {
     @apply flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start;
   }
+}
 
-  .sidebar-label {
-    @apply text-16 font-semibold text-black-2 max-xl:hidden;
+@layer base {
+  * {
+    border-color: theme('colors.gray.200');
+  }
+  body {
+    @apply bg-white text-gray-900;
   }
 }
