@@ -1,25 +1,12 @@
 import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalance from "@/components/TotalBalance";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 import React from "react";
 
-const Home = () => {
+const Home = async() => {
   // Mocking the full User object to satisfy TypeScript
-  const loggedIn = {
-    $id: "user_01",
-    userId: "Aser_01",
-    email: "amaanpasha@example.com",
-    firstName: "Amaan",
-    lastName: "Dev",
-    dwollaCustomerUrl: "https://dwolla.com/sandbox/customer/123",
-    dwollaCustomerId: "123",
-    address1: "123 Main St",
-    city: "New York",
-    state: "NY",
-    postalCode: "10001",
-    dateOfBirth: "2000-01-01",
-    ssn: "1234",
-  };
+  const loggedIn = await getLoggedInUser();
 
   return (
     <section className="home">
@@ -29,7 +16,7 @@ const Home = () => {
             type="greeting"
             title="Welcome"
             // HeaderBox usually just expects a string for the name
-            user={loggedIn?.firstName || "Guest"}
+            user={loggedIn?.name || "Guest"}
             subtext="Access and manage your account and transactions efficiently"
           />
         </header>

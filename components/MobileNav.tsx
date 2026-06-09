@@ -13,10 +13,11 @@ import {
   SheetTrigger,
   SheetTitle, // 1. Make sure SheetTitle is imported
 } from "@/components/ui/sheet";
+import Fotter from "./Fotter";
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
-  
+
   return (
     <section>
       <Sheet>
@@ -30,7 +31,6 @@ const MobileNav = ({ user }: MobileNavProps) => {
           />
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-white">
-          
           {/* 2. ✅ ADD THIS LINE: It keeps screen readers happy but stays invisible */}
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
@@ -56,7 +56,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
                   const isActive =
                     pathname === item.route ||
                     pathname.startsWith(`${item.route}/`);
-                    
+
                   return (
                     <SheetClose asChild key={item.route}>
                       <Link
@@ -86,17 +86,12 @@ const MobileNav = ({ user }: MobileNavProps) => {
                   );
                 })}
 
-                <div className="text-black-1">
-                  USER
+                <div className="text-black-1">USER</div>
+                <div className="text-black-2 mt-auto">
+                  <Fotter user={user} type="mobile" />
                 </div>
-
               </nav>
             </div>
-
-            <div className="text-black-2 mt-auto">
-              FOOTER
-            </div>
-
           </nav>
         </SheetContent>
       </Sheet>

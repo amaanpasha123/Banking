@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import Signup from "@/app/(auth)/signup/page";
-import { signIn, signUp } from "@/lib/actions/user.actions";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 
 // ── Schema ────────────────────────────────────────────────
 const authFormSchema = (type: "sign-in" | "sign-up") =>
@@ -75,9 +75,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
     null,
   );
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const formSchema = authFormSchema(type);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -104,11 +103,11 @@ const AuthForm = ({ type }: AuthFormProps) => {
         if (newUser) setUser(newUser); // ✅ only set if not undefined
       }
       if (type === "sign-in") {
-        // const response = await signIn({
-        //   email:values.email,
-        //   password : values.password
-        // });
-        // if(response) router.push('/');
+        const response = await signIn({
+          email:values.email,
+          password : values.password
+        });
+        if(response) router.push('/');
       }
       console.log(values);
       // router.push("/");

@@ -4,9 +4,13 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
-export const signIn = async () => {
+
+export const signIn = async ({email, password}:signInProps) => {
   try {
     //mutation / Database / Make Fetch
+      const { account } = await createAdminClient();
+      const response = await account.createEmailPasswordSession(email, password);
+      return parseStringify(response);
   } catch (error) {
     console.error("Error", error);
   }
@@ -14,11 +18,7 @@ export const signIn = async () => {
 
 export const signUp = async (userData: SignUpParams) => {
   const { email, password, firstName, lastName } = userData;
-
-  // Add these logs ✅
-  console.log("Endpoint:", process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT);
-  console.log("Project:", process.env.NEXT_PUBLIC_APPWRITE_PROJECT);
-  console.log("Key exists:", !!process.env.NEXT_APPWRITE_KEY);
+  
   try {
     //mutation / Database / Make Fetch
     const { account } = await createAdminClient();
@@ -53,8 +53,23 @@ export const signUp = async (userData: SignUpParams) => {
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    return await account.get();
+    const user = await account.get();
+    return parseStringify(user); // ← add this ✅
   } catch (error) {
+    return null;
+  }
+}
+
+
+//logout function for this now have to do 
+export const logout = async ()=>{
+  try{
+    const {account} = await createSessionClient();
+
+    (await cookies()).delete('appwrite-session');
+    await account.deleteSession('current');
+    
+  }catch(error){
     return null;
   }
 }
