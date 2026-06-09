@@ -13,3 +13,5 @@ export const formatAmount = (amount: number): string => {
 
   return formatter.format(amount);
 };
+
+export const parseStringify = <T>(value: T): T => JSON.parse(JSON.stringify(value));

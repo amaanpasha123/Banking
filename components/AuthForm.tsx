@@ -1,5 +1,5 @@
 "use client";
-
+import { Models } from "node-appwrite";
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -71,7 +71,9 @@ interface AuthFormProps {
 
 const AuthForm = ({ type }: AuthFormProps) => {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
+    null,
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = authFormSchema(type);
@@ -97,21 +99,19 @@ const AuthForm = ({ type }: AuthFormProps) => {
     try {
       // TODO: wire up your signIn / signUp actions here
       // e.g. const session = await signIn({ email: values.email, password: values.password });
-      if(type === 'sign-up'){
-         const newUser = await signUp(values);
-         setUser(newUser);
+      if (type === "sign-up") {
+        const newUser = await signUp(values);
+        if (newUser) setUser(newUser); // ✅ only set if not undefined
       }
-      if(type === 'sign-in'){
-        const response = await signIn({
-          email:values.email,
-          password : values.password
-        });
-
-        if(response) router.push('/');
-
+      if (type === "sign-in") {
+        // const response = await signIn({
+        //   email:values.email,
+        //   password : values.password
+        // });
+        // if(response) router.push('/');
       }
       console.log(values);
-      router.push("/");
+      // router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
@@ -137,14 +137,12 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
         <div className="flex flex-col gap-1 md:gap-3">
           <h1 className="text-24 lg:text-26 font-semibold text-gray-900">
-            {user
-              ? "Link Account"
-              : type === "sign-in"
-              ? "Sign In"
-              : "Sign Up"}
+            {user ? "Link Account" : type === "sign-in" ? "Sign In" : "Sign Up"}
           </h1>
           <p className="text-16 font-normal text-gray-600">
-            {user ? "Link your account to get started" : "Please enter your details"}
+            {user
+              ? "Link your account to get started"
+              : "Please enter your details"}
           </p>
         </div>
       </header>
@@ -155,7 +153,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
             {/* ── Sign-up only fields ─────────────────── */}
             {type === "sign-up" && (
               <>
@@ -259,7 +256,9 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     name="postalCode"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel className="form-label">Postal Code</FormLabel>
+                        <FormLabel className="form-label">
+                          Postal Code
+                        </FormLabel>
                         <FormControl>
                           <Input
                             placeholder="ex: 11101"
@@ -280,7 +279,9 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     name="dateOfBirth"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel className="form-label">Date of Birth</FormLabel>
+                        <FormLabel className="form-label">
+                          Date of Birth
+                        </FormLabel>
                         <FormControl>
                           <Input
                             placeholder="yyyy-mm-dd"
@@ -353,11 +354,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
             {/* ── Submit ──────────────────────────────── */}
             <div className="flex flex-col gap-4">
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="form-btn"
-              >
+              <Button type="submit" disabled={isLoading} className="form-btn">
                 {isLoading ? (
                   <>
                     <Loader2 size={20} className="animate-spin" />
