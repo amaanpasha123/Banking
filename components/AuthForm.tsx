@@ -352,7 +352,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
             />
 
             {/* ── Submit ──────────────────────────────── */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4"> 
               <Button type="submit" disabled={isLoading} className="form-btn">
                 {isLoading ? (
                   <>

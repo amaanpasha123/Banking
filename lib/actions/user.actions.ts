@@ -5,12 +5,20 @@ import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
 
-export const signIn = async ({email, password}:signInProps) => {
+export const signIn = async ({email, password}: signInProps) => {
   try {
-    //mutation / Database / Make Fetch
-      const { account } = await createAdminClient();
-      const response = await account.createEmailPasswordSession(email, password);
-      return parseStringify(response);
+    const { account } = await createAdminClient();
+    const session = await account.createEmailPasswordSession(email, password);
+
+    // ✅ ADD THIS - this was missing!
+    (await cookies()).set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
+    return parseStringify(session);
   } catch (error) {
     console.error("Error", error);
   }
