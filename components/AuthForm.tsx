@@ -148,7 +148,10 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
       {/* ── Form ───────────────────────────────────────── */}
       {user ? (
-        <div className="flex flex-col gap-4">{/* Plaid Link goes here */}</div>
+        <div className="flex flex-col gap-4">
+          {/* Plaid Link goes here */}
+          
+        </div>
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
