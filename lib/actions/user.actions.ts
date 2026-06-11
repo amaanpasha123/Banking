@@ -112,6 +112,9 @@ export async function getUserInfo({ userId }: { userId: string }): Promise<User 
       [Query.equal("userId", [userId])]
     );
 
+    // ← guard against empty results
+    if (user.documents.length === 0) return null;
+
     return parseStringify(user.documents[0]) as unknown as User;
   } catch (error) {
     console.error(error);
