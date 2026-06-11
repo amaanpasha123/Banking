@@ -147,24 +147,24 @@ export const logout = async () => {
 };
 
 //create Linked Token ......
-export const createLinkToken = async (
-  user: User
-) => {
+export const createLinkToken = async (user: User) => {
   try {
     const tokenParams = {
       user: {
         client_user_id: user.$id,
       },
-
-      client_name: user.name,
+      // FIX: Hardcode your application name instead of using user.name
+      client_name: "Horizon", 
       products: ["auth"] as Products[],
       language: "en",
       country_codes: ["US"] as CountryCode[],
     };
+
     const response = await plaidClient.linkTokenCreate(tokenParams);
     return parseStringify({ linkToken: response.data.link_token });
   } catch (error) {
-    console.log(error);
+    // This will now print the exact error to your terminal if something else is wrong
+    console.error("Plaid API Error:", error); 
   }
 };
 
