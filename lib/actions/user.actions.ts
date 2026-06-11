@@ -1,5 +1,6 @@
 "use server";
 import { ID } from "node-appwrite";
+import { Query } from "node-appwrite"; // add this import at top
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify, extractCustomerIdFromUrl, encryptId } from "../utils";
@@ -99,11 +100,30 @@ export const signUp = async ({ password, ...userData}:SignUpParams) => {
 
 // ... your initilization functions
 
+
+
+export async function getUserInfo({ userId }: { userId: string }) {
+  try {
+    const { database } = await createAdminClient();
+
+    const user = await database.listDocuments(
+      DATABASE_ID!,
+      USER_COLLECTION_ID!,
+      [Query.equal("userId", [userId])]
+    );
+
+    return parseStringify(user.documents[0]) as unknown as User; // ← fix here
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    const user = await account.get();
-    return parseStringify(user); // ← add this ✅
+    const result = await account.get();
+    const user = await getUserInfo({ userId: result.$id });
+    return parseStringify(user) as unknown as User; // ← fix here
   } catch (error) {
     return null;
   }
