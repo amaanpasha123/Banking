@@ -102,7 +102,7 @@ export const signUp = async ({ password, ...userData}:SignUpParams) => {
 
 
 
-export async function getUserInfo({ userId }: { userId: string }) {
+export async function getUserInfo({ userId }: { userId: string }): Promise<User | null> {
   try {
     const { database } = await createAdminClient();
 
@@ -112,23 +112,23 @@ export async function getUserInfo({ userId }: { userId: string }) {
       [Query.equal("userId", [userId])]
     );
 
-    return parseStringify(user.documents[0]) as unknown as User; // ← fix here
+    return parseStringify(user.documents[0]) as unknown as User;
   } catch (error) {
     console.error(error);
-  }
-}
-
-export async function getLoggedInUser() {
-  try {
-    const { account } = await createSessionClient();
-    const result = await account.get();
-    const user = await getUserInfo({ userId: result.$id });
-    return parseStringify(user) as unknown as User; // ← fix here
-  } catch (error) {
     return null;
   }
 }
 
+export async function getLoggedInUser(): Promise<User | null> {
+  try {
+    const { account } = await createSessionClient();
+    const result = await account.get();
+    const user = await getUserInfo({ userId: result.$id });
+    return parseStringify(user) as unknown as User;
+  } catch (error) {
+    return null;
+  }
+}
 //logout function for this now have to do
 export const logout = async () => {
   try {
