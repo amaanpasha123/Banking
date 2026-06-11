@@ -1,5 +1,4 @@
 "use client";
-import { Models } from "node-appwrite";
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,14 +19,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
-import Signup from "@/app/(auth)/signup/page";
 import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 import PlaidLinks from "./PlaidLinks";
 
 // ── Schema ────────────────────────────────────────────────
 const authFormSchema = (type: "sign-in" | "sign-up") =>
   z.object({
-    // Sign-up only fields
     firstName:
       type === "sign-up"
         ? z.string().min(2, "First name must be at least 2 characters")
@@ -60,8 +57,6 @@ const authFormSchema = (type: "sign-in" | "sign-up") =>
       type === "sign-up"
         ? z.string().min(4, "Enter last 4 digits of SSN")
         : z.string().optional(),
-
-    // Shared fields
     email: z.string().email("Enter a valid email address"),
     password: z.string().min(8, "Password must be at least 8 characters"),
   });
@@ -72,9 +67,7 @@ interface AuthFormProps {
 
 const AuthForm = ({ type }: AuthFormProps) => {
   const router = useRouter();
-  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
-    null,
-  );
+  const [user, setUser] = useState<User | null>(null); // ← fixed type
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = authFormSchema(type);
@@ -114,8 +107,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
         const newUser = await signUp(userData);
 
         if (newUser) {
-          const loggedInUser = await getLoggedInUser(); // ← fetch proper typed user
-          setUser(loggedInUser); // ← now correct type
+          const loggedInUser = await getLoggedInUser();
+          setUser(loggedInUser);
         }
       }
 
@@ -161,8 +154,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
         </div>
       </header>
 
-      {/* ── Form ───────────────────────────────────────── */}
-      {/* {user ? ( */}
+      {/* ── Plaid or Form ──────────────────────────────── */}
       {user ? (
         <div className="flex flex-col gap-4">
           <PlaidLinks user={user} variant="primary" />
@@ -170,10 +162,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
       ) : (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            {/* ── Sign-up only fields ─────────────────── */}
             {type === "sign-up" && (
               <>
-                {/* First name + Last name */}
                 <div className="flex gap-4">
                   <FormField
                     control={form.control}
@@ -211,7 +201,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
                   />
                 </div>
 
-                {/* Address */}
                 <FormField
                   control={form.control}
                   name="address1"
@@ -230,7 +219,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
                   )}
                 />
 
-                {/* City */}
                 <FormField
                   control={form.control}
                   name="city"
@@ -249,7 +237,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
                   )}
                 />
 
-                {/* State + Postal Code */}
                 <div className="flex gap-4">
                   <FormField
                     control={form.control}
@@ -273,9 +260,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     name="postalCode"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel className="form-label">
-                          Postal Code
-                        </FormLabel>
+                        <FormLabel className="form-label">Postal Code</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="ex: 11101"
@@ -289,16 +274,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
                   />
                 </div>
 
-                {/* Date of Birth + SSN */}
                 <div className="flex gap-4">
                   <FormField
                     control={form.control}
                     name="dateOfBirth"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel className="form-label">
-                          Date of Birth
-                        </FormLabel>
+                        <FormLabel className="form-label">Date of Birth</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="yyyy-mm-dd"
@@ -331,7 +313,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
               </>
             )}
 
-            {/* ── Shared fields (both sign-in & sign-up) ─ */}
             <FormField
               control={form.control}
               name="email"
@@ -369,7 +350,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
               )}
             />
 
-            {/* ── Submit ──────────────────────────────── */}
             <div className="flex flex-col gap-4">
               <Button type="submit" disabled={isLoading} className="form-btn">
                 {isLoading ? (
@@ -387,7 +367,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
           </form>
         </Form>
       )}
-      {/* )} */}
 
       {/* ── Footer link ────────────────────────────────── */}
       <footer className="flex justify-center gap-1">
