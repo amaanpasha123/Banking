@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import Signup from "@/app/(auth)/signup/page";
 import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLinks from "./PlaidLinks";
 
 // ── Schema ────────────────────────────────────────────────
 const authFormSchema = (type: "sign-in" | "sign-up") =>
@@ -75,7 +76,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
     null,
   );
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -96,21 +97,35 @@ const AuthForm = ({ type }: AuthFormProps) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      // TODO: wire up your signIn / signUp actions here
-      // e.g. const session = await signIn({ email: values.email, password: values.password });
       if (type === "sign-up") {
-        const newUser = await signUp(values);
-        if (newUser) setUser(newUser); // ✅ only set if not undefined
+        const userData = {
+          firstName: values.firstName!,
+          lastName: values.lastName!,
+          address1: values.address1!,
+          city: values.city!,
+          state: values.state!,
+          postalCode: values.postalCode!,
+          dateOfBirth: values.dateOfBirth!,
+          ssn: values.ssn!,
+          email: values.email,
+          password: values.password,
+        };
+
+        const newUser = await signUp(userData);
+
+        if (newUser) {
+          const loggedInUser = await getLoggedInUser(); // ← fetch proper typed user
+          setUser(loggedInUser); // ← now correct type
+        }
       }
+
       if (type === "sign-in") {
         const response = await signIn({
-          email:values.email,
-          password : values.password
+          email: values.email,
+          password: values.password,
         });
-        if(response) router.push('/');
+        if (response) router.push("/");
       }
-      console.log(values);
-      // router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
@@ -147,10 +162,10 @@ const AuthForm = ({ type }: AuthFormProps) => {
       </header>
 
       {/* ── Form ───────────────────────────────────────── */}
+      {/* {user ? ( */}
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* Plaid Link goes here */}
-          
+          <PlaidLinks user={user} variant="primary" />
         </div>
       ) : (
         <Form {...form}>
@@ -355,7 +370,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
             />
 
             {/* ── Submit ──────────────────────────────── */}
-            <div className="flex flex-col gap-4"> 
+            <div className="flex flex-col gap-4">
               <Button type="submit" disabled={isLoading} className="form-btn">
                 {isLoading ? (
                   <>
@@ -372,6 +387,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
           </form>
         </Form>
       )}
+      {/* )} */}
 
       {/* ── Footer link ────────────────────────────────── */}
       <footer className="flex justify-center gap-1">
