@@ -117,6 +117,8 @@ export const logout = async () => {
     (await cookies()).delete("appwrite-session");
     await account.deleteSession("current");
   } catch (error) {
+
+    
     return null;
   }
 };
