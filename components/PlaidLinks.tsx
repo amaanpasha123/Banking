@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation';
 import { PlaidLinkOptions, usePlaidLink } from 'react-plaid-link';
-import { Models } from 'node-appwrite'; 
 import { createLinkToken, exchangePublicToken } from '@/lib/actions/user.actions';
 
 interface PlaidLinkProps {
@@ -16,7 +15,13 @@ const PlaidLinks = ({ user, variant }: PlaidLinkProps) => {
 
   useEffect(() => {
     const getLinkToken = async () => {
+      console.log('user received in PlaidLinks:', user);
+      console.log('user.$id:', user?.$id);
+      console.log('user.name:', user?.name);
+      
       const data = await createLinkToken(user);
+      console.log('createLinkToken response:', data);
+      
       setToken(data?.linkToken || '');
     }
     getLinkToken();
